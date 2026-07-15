@@ -94,8 +94,6 @@ public class UserEntity extends AuditableEntity {
   /** Empresa del empleado. */
   @JsonIgnore
   @ManyToOne
-  @JoinColumn(
-      name = "id_enterprise",
-      referencedColumnName = "id")
+  @JoinColumn(name = "id_enterprise", referencedColumnName = "id")
   private EnterpriseEntity enterprise;
 }

@@ -5,7 +5,6 @@ import com.moontech.archetype.infrastructure.model.response.LoginResponse;
 import com.moontech.archetype.infrastructure.model.response.RefreshTokenResponse;
 import com.moontech.archetype.infrastructure.security.constant.SecurityConstants;
 import com.moontech.archetype.infrastructure.security.utility.SecurityUtilities;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller for authentication operations.
  *
  * @author Felipe Monzón
- * @since 2024-07-29
+ * @since 2026-07-13
  */
 @Validated
 @RestController
@@ -39,14 +38,14 @@ public class AuthController {
    */
   @PostMapping("/refresh-token")
   public ResponseEntity<LoginResponse> refreshToken(
-      @RequestHeader(SecurityConstants.REFRESH_TOKEN_HEADER_NAME) @Valid @NotEmpty
-          String refreshToken) {
+      @RequestHeader(SecurityConstants.REFRESH_TOKEN_HEADER_NAME) @NotEmpty String refreshToken) {
     RefreshTokenResponse refreshTokenResponse = this.securityBusiness.refreshToken(refreshToken);
     HttpHeaders headers = new HttpHeaders();
     headers.add(
         HttpHeaders.AUTHORIZATION,
         SecurityUtilities.addTokenToHeader(refreshTokenResponse.getAccessToken()));
-    headers.add(SecurityConstants.REFRESH_TOKEN_HEADER_NAME, refreshTokenResponse.getRefreshToken());
+    headers.add(
+        SecurityConstants.REFRESH_TOKEN_HEADER_NAME, refreshTokenResponse.getRefreshToken());
     return ResponseEntity.ok().headers(headers).body(refreshTokenResponse.getUserData());
   }
 }

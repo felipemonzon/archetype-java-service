@@ -1,8 +1,7 @@
 package com.moontech.archetype.infrastructure.exception.custom;
 
-import lombok.Getter;
-
 import java.io.Serial;
+import lombok.Getter;
 
 /**
  * Exception thrown for invalid credentials.
@@ -14,9 +13,8 @@ import java.io.Serial;
 public class ForbiddenException extends RuntimeException {
   /** Serial. */
   @Serial private static final long serialVersionUID = -6450278167900735942L;
-  /**
-   * Error code.
-   */
+
+  /** Error code. */
   private final int code;
 
   /**

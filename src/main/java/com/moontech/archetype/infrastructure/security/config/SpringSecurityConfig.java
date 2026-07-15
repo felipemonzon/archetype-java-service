@@ -80,9 +80,7 @@ public class SpringSecurityConfig {
                 this.securityProperties.getJwtKey(),
                 this.securityProperties.getJwtLifeTime(),
                 PathPatternRequestMatcher.withDefaults()
-                    .matcher(
-                        HttpMethod.POST,
-                        this.securityProperties.getUserAuthenticationPath()),
+                    .matcher(HttpMethod.POST, this.securityProperties.getUserAuthenticationPath()),
                 this.securityProperties.getRefreshTokenLifeTime()),
             UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(

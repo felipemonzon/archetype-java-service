@@ -1,10 +1,9 @@
 package com.moontech.archetype.infrastructure.exception.custom;
 
-import lombok.Getter;
-
 import java.io.Serial;
 import java.util.Collections;
 import java.util.List;
+import lombok.Getter;
 
 /**
  * Exception for bad requests.

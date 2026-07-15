@@ -1,11 +1,8 @@
 package com.moontech.archetype.infrastructure.security.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moontech.archetype.application.business.SecurityBusiness;
-import com.moontech.archetype.commons.constant.ApiConstant;
 import com.moontech.archetype.commons.constant.ErrorConstant;
-import com.moontech.archetype.infrastructure.exception.custom.ErrorResponse;
-import com.moontech.archetype.infrastructure.exception.management.ExceptionManagement;
+import com.moontech.archetype.infrastructure.exception.custom.ForbiddenException;
 import com.moontech.archetype.infrastructure.security.constant.SecurityConstants;
 import com.moontech.archetype.infrastructure.security.property.SecurityProperties;
 import com.moontech.archetype.infrastructure.security.utility.SecurityUtilities;
@@ -74,17 +71,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
           && !httpServletRequest.getRequestURI().contains("/users/password/reset")
           && !httpServletRequest.getRequestURI().contains("/actuator")
           && !httpServletRequest.getRequestURI().contains("/health")) {
-        httpServletResponse
-            .getWriter()
-            .print(
-                new ObjectMapper()
-                    .writeValueAsString(
-                        ErrorResponse.builder()
-                            .type(ExceptionManagement.ErrorType.INVALID.name())
-                            .code(ErrorConstant.INVALID_TOKEN_CODE)
-                            .message(ErrorConstant.INVALID_TOKEN_MESSAGE)
-                            .uuid(httpServletRequest.getHeader(ApiConstant.HEADER_UUID))
-                            .build()));
+        throw new ForbiddenException(
+            ErrorConstant.INVALID_TOKEN_CODE, ErrorConstant.INVALID_TOKEN_MESSAGE);
       }
       filterChain.doFilter(httpServletRequest, httpServletResponse);
       return;
