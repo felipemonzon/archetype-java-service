@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.crypto.SecretKey;
-
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,7 +25,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * Security utility.
  *
  * @author Felipe Monzón
- * @since 22 jun., 2023
+ * @since 2206-06-29
  */
 @UtilityClass
 public class SecurityUtilities {

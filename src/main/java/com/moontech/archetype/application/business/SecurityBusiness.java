@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Login business logic.
+ * Security business logic.
  *
  * @author Felipe Monzón
  * @since 2026-06-10
@@ -39,7 +39,7 @@ public class SecurityBusiness implements UserDetailsService {
 
   @Override
   @Transactional
-  @Observed(name = "login", contextualName = "login")
+  @Observed(name = "loadUserByUsername", contextualName = "loadUserByUsername")
   public UserDetails loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
     log.info("Load user by username process started...");
     UserEntity user =
@@ -56,7 +56,6 @@ public class SecurityBusiness implements UserDetailsService {
    * @param refreshToken the refresh token
    * @return a new {@link RefreshTokenResponse} with updated access and refresh tokens
    */
-  @Transactional
   @Observed(name = "refreshToken", contextualName = "refreshToken")
   public RefreshTokenResponse refreshToken(String refreshToken) {
     String username =

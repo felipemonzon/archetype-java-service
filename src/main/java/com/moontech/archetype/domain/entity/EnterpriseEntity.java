@@ -2,10 +2,6 @@ package com.moontech.archetype.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.moontech.archetype.commons.enums.Status;
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Set;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

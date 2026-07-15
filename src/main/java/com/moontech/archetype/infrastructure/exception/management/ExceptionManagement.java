@@ -4,10 +4,15 @@ import com.moontech.archetype.commons.constant.ApiConstant;
 import com.moontech.archetype.commons.constant.ErrorConstant;
 import com.moontech.archetype.infrastructure.exception.custom.BusinessException;
 import com.moontech.archetype.infrastructure.exception.custom.ErrorResponse;
+import com.moontech.archetype.infrastructure.exception.custom.ForbiddenException;
 import com.moontech.archetype.infrastructure.exception.custom.NotDataFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.NestedExceptionUtils;
@@ -168,15 +173,13 @@ public class ExceptionManagement {
       MethodArgumentNotValidException ex, WebRequest request) {
     List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
 
-    List<String> fields = new ArrayList<>();
-    Map<String, List<String>> groupedErrors = new HashMap<>();
+    List<String> fields = fieldErrors.stream().map(FieldError::getField).toList();
+    Map<String, List<String>> groupedErrors =
+        fieldErrors.stream()
+            .collect(
+                Collectors.toMap(
+                    FieldError::getDefaultMessage, f -> Collections.singletonList(f.getField())));
 
-    for (FieldError fieldError : fieldErrors) {
-      String field = fieldError.getField();
-      groupedErrors.computeIfAbsent(
-          fieldError.getDefaultMessage(), _ -> Collections.singletonList(field));
-      fields.add(field);
-    }
     ErrorResponse apiError =
         ErrorResponse.builder()
             .type(ErrorType.INVALID.name())
@@ -201,7 +204,7 @@ public class ExceptionManagement {
   public ErrorResponse resolveBusinessException(WebRequest request, BusinessException ex) {
     ErrorResponse apiError =
         ErrorResponse.builder()
-            .type(ErrorType.WARN.name())
+            .type(ErrorType.INVALID.name())
             .code(ex.getCode())
             .message(ex.getMessage())
             .uuid(request.getHeader(ApiConstant.HEADER_UUID))
@@ -237,5 +240,26 @@ public class ExceptionManagement {
             .build();
     log.error(errorResponse.toString());
     return errorResponse;
+  }
+
+  /**
+   * Method to handle an exception of type {@link ForbiddenException}.
+   *
+   * @param request Http Servlet request object.
+   * @param ex Received exception {@link ForbiddenException}
+   * @return errorResponse {@link ErrorResponse} specific response for {@link ForbiddenException}.
+   */
+  @ExceptionHandler(ForbiddenException.class)
+  @ResponseStatus(value = HttpStatus.FORBIDDEN)
+  public ErrorResponse resolveForbiddenException(WebRequest request, ForbiddenException ex) {
+    ErrorResponse apiError =
+        ErrorResponse.builder()
+            .type(ErrorType.INVALID.name())
+            .code(ex.getCode())
+            .message(ex.getMessage())
+            .uuid(request.getHeader(ApiConstant.HEADER_UUID))
+            .build();
+    log.debug(apiError.toString());
+    return apiError;
   }
 }

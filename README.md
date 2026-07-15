@@ -8,6 +8,7 @@ Para más detalle mira el archivo [CHANGELOG](CHANGELOG)
 
 # Quality Gate
 
+[![CI Build and Test](https://github.com/felipemonzon/archetype-java-service/actions/workflows/ci.yml/badge.svg)](https://github.com/felipemonzon/archetype-java-service/actions/workflows/ci.yml)
 
 ### Pre-requisitos 📋
 Tener instalado

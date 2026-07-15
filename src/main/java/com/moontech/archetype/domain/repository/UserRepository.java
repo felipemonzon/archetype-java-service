@@ -1,10 +1,9 @@
 package com.moontech.archetype.domain.repository;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.moontech.archetype.commons.enums.Status;
 import com.moontech.archetype.domain.entity.UserEntity;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 

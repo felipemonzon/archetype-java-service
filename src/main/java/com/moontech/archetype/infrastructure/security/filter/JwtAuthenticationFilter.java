@@ -19,7 +19,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.HttpHeaders;
