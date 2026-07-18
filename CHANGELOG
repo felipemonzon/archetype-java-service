@@ -1,2 +1,6 @@
 -- Add Integration Test
 -- Add CI/CD in github Actions
+
+- Add dockerFile
+- Add docker-compose
+- Change English description in readme
