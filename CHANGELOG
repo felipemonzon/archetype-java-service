@@ -4,3 +4,6 @@
 - Add dockerFile
 - Add docker-compose
 - Change English description in readme
+
+- Add quality gate
+- Check dependency

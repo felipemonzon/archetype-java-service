@@ -8,6 +8,8 @@ For more details, see the [CHANGELOG](CHANGELOG) file.
 
 # Quality Gate
 
+[![Quality gate status](https://sonarcloud.io/api/project_badges/measure?project=felipemonzon_archetype-java-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=felipemonzon_archetype-java-service)
+
 [![CI Build and Test](https://github.com/felipemonzon/archetype-java-service/actions/workflows/ci.yml/badge.svg)](https://github.com/felipemonzon/archetype-java-service/actions/workflows/ci.yml)
 
 ### 🛠️ Prerequisites
