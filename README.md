@@ -1,92 +1,150 @@
-# archetype-service
-Archetype java service
+# archetype-java-service
+A robust and scalable Java microservice archetype built with Spring Boot, designed to provide a solid foundation for new projects. It incorporates best practices for development, testing, and deployment, including a layered architecture, comprehensive error handling, and containerization with Docker.
 
 # Version
 ![version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
-Para más detalle mira el archivo [CHANGELOG](CHANGELOG)
+For more details, see the [CHANGELOG](CHANGELOG) file.
 
 # Quality Gate
 
 [![CI Build and Test](https://github.com/felipemonzon/archetype-java-service/actions/workflows/ci.yml/badge.svg)](https://github.com/felipemonzon/archetype-java-service/actions/workflows/ci.yml)
 
-### Pre-requisitos 📋
-Tener instalado
+### 🛠️ Prerequisites
+Ensure you have the following installed before running the project:
+
 * IntelliJ
 * Gradle
 * Java
 * MySQL
+* Docker
 
-Para desencriptar los datos del archivo properties es necesario
-agregar este parámetro al iniciar el proyecto
+### 📁 Folder Structure Diagram:
+
+```
+.
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── docker/
+│   └── Dockerfile
+├── gradle/
+│   └── wrapper/
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/moontech/archetype/
+│   │   │       ├── application/  (Business logic, mappers, services)
+│   │   │       ├── commons/      (Constants, enums)
+│   │   │       ├── domain/       (Entities, repositories)
+│   │   │       ├── infrastructure/ (Controllers, security, exceptions, models)
+│   │   │       └── ArchetypeApplication.java
+│   │   └── resources/
+│   │       ├── application.properties
+│   │       ├── application-test.properties
+│   │       └── db/migration/
+│   └── test/
+│       └── java/
+│           └── com/moontech/archetype/
+│               ├── configuration/ (Testcontainers setup)
+│               ├── constants/     (Test constants)
+│               └── controller/    (Unit tests for controllers)
+├── .gitignore
+├── build.gradle
+├── docker-compose.yml
+├── gradlew
+├── gradlew.bat
+├── HELP.md
+├── LICENSE
+├── README.md
+├── settings.gradle
+└── ... (other config files)
+```
+
+### 🔐 Decrypt and Encrypt data with jasypt
+
+To decrypt the data in the properties file, it is necessary to add this parameter when starting the project:
 
 ```
 ./gradlew encryptProperties --password=felipemonzon
 ```
 
-Para encriptar los datos sensibles es necesario compilar con la siguiente instrucción:
+To encrypt sensitive data, it is necessary to compile with the following instruction:
 ```
 ./gradlew decryptProperties --password=felipemonzon
 ```
 
-### Instalación 🔧
+### 🚀 Execution with Docker Compose 
+To simplify local development and testing, a multi-container environment is configured via the docker-compose.yml file. This sets up the microservice along with its database dependency.
 
-Proyecto comprobar si el proyecto esta en orden con gradle
+Steps to Start the Environment:
+Build the application executable:
 
 ```
-./gradlew clean check
+./gradlew clean build -x test
 ```
 
-## Ejecutando las pruebas ⚙
+Spin up the containers:
 
-Para ejecutar las pruebas y comprobar la calidad del código en sonar
+```
+docker-compose up -d --build
+```
+
+Note: The -d flag runs containers in background mode, and --build ensures the Docker image is recreated with your latest local code changes.
+
+Check the service status:
+
+```
+docker-compose ps
+```
+
+Stop the environment:
+
+```
+docker-compose down
+```
+
+## 🧪 Testing
+Run the complete test suite (unit and integration tests) using Gradle:
 
 ```
 ./gradlew clean test --info
 ```
 
-### Y las pruebas unitarias de codificación ⌨️
-
-Las pruebas se realizaron con mockito y junit
-
-```
-  
-```
-
-## Despliegue 📦
-
-Utilizar tu container favorito
-
-## Construido con 🛠️
+## 🛠️ Built With 🛠️
 
 * Spring Boot 4.0.6
 * Java 26
 * Gradle
 * IntelliJ IDEA
 
-### Formateador de sintaxis de código 📋
-Para formatear el código se realiza de la siguiente manera
+### 📋 Code Syntax Formatter
+
+To format the code, do the following:
 
 ```
 ./gradlew spotlessApply
 ```
-Para validar el formato del código se realiza del siguiente manera
+
+To validate the code format, do the following:
 
 ```
 ./gradlew spotlessCheck
 ```
 
-## Versionado 📌
+## 📌 Versioning
 
-Usamos [GitHub](https://github.com/felipemonzon/archetype-java-service) para el versionado.
+We use [GitHub](https://github.com/felipemonzon/archetype-java-service) for versioning.
 
-## Autores ✒️
+## ✒️ Authors
 
-* **[Felipe Monzón](https://felipemonzon.github.io/)** - *WEB AND JAVA DEVELOPER*
+* **[Felipe Monzón](https://felipemonzon.github.io/)** - *Fullstack developer*
 
-## Contribuyendo 🖇
+## 🖇 Contributing
 
 
-## Licencia 📄
+## 📄 License
 
-Este proyecto está bajo la Licencia GNU General Public License v3.0 - mira el archivo [LICENSE.md](LICENSE) para detalles
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE) file for details.
