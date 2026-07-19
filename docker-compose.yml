@@ -1,12 +1,11 @@
-version: '3.8'
+version: "3.9"
 
 services:
   mysql-db:
-    image: mysql:8.0
-    container_name: service-database
-    command: --default-authentication-plugin=mysql_native_password
+    image: mysql:latest
+    container_name: service-database-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root_password_dev
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: archetypedb
       MYSQL_USER: user_dev
       MYSQL_PASSWORD: password_dev

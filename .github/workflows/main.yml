@@ -77,6 +77,6 @@ jobs:
             -Dsonar.organization=${{ env.SONAR_ORGANIZATION }}
             -Dsonar.host.url=${{ env.SONAR_URL }}
             -Dsonar.token=${{ env.SONAR_TOKEN }}
-            -Dsonar.exclusions=src/main/resources/**,src/test/**,.github/**,**/*.md,gradlew,gradlew.bat,gradle/**,docker-compose.yml,LICENSE,.gitignore,.DS_Store,build.gradle
+            -Dsonar.exclusions=src/main/resources/**,src/test/**,.github/**,**/*.md,gradlew,gradlew.bat,gradle/**,docker-compose.yml,LICENSE,.gitignore,.DS_Store,build.gradle,docker/**
             -Dsonar.java.coveragePlugin=jacoco
             -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/test/jacocoTestReport.xml

@@ -1,6 +1,6 @@
 # --- Stage 1: Build the application ---
 # Use a Gradle image with JDK 26 for building the application
-FROM gradle:8.8-jdk26-jammy AS builder
+FROM gradle:jdk26-alpine AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 # Copy only necessary files for Gradle to determine dependencies
 # This leverages Docker's build cache: if these files don't change,
 # subsequent layers can be reused, speeding up builds.
-COPY build.gradle settings.gradle gradlew ./
+COPY gradle.properties build.gradle settings.gradle gradlew ./
 COPY gradle gradle
 
 # Copy the application source code
@@ -17,11 +17,11 @@ COPY src src
 # Build the application
 # --no-daemon is recommended for CI/CD environments
 # -x test skips running tests during the build, as tests are typically run in a separate CI step
-RUN ./gradlew clean build -x test
+RUN ./gradlew clean build -x test --no-daemon
 
 # --- Stage 2: Create the final runtime image ---
 # Use a lightweight OpenJDK JRE 26 image for the final application
-FROM openjdk:26-jre-slim-buster
+FROM amazoncorretto:26-alpine-jdk
 
 # Set timezone (optional, but good practice for consistent logging and date handling)
 ENV TZ=America/Mexico_City
@@ -39,4 +39,4 @@ WORKDIR /app
 COPY --from=builder /app/build/libs/*.jar app.jar
 
 # Define the command to run the application when the container starts
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Djasypt.encryptor.password=felipemonzon", "-jar", "app.jar"]
