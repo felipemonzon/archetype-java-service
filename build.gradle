@@ -97,11 +97,102 @@ jacocoTestReport {
 }
 
 tasks.encryptProperties {
-	System.getenv("JASYPT_ENCRYPTOR_PASSWORD")
+	group = 'encryption'
+	description = 'Scans application.yaml, encrypts all DEC(...) values, and replaces them with ENC(...)'
+
+	doLast {
+		// 1. Validate environment variable
+		def password = System.getenv("JASYPT_ENCRYPTOR_PASSWORD")
+		if (!password) {
+			throw new GradleException("Environment variable JASYPT_ENCRYPTOR_PASSWORD is not set!")
+		}
+
+		// 2. Locate the target YAML file
+		def yamlFile = file("${projectDir}/src/main/resources/application.yaml")
+		if (!yamlFile.exists()) {
+			throw new GradleException("Target file not found at: ${yamlFile.absolutePath}")
+		}
+
+		// 3. Initialize Jasypt Standard Encryptor
+		def encryptor = new org.jasypt.encryption.pbe.StandardPBEStringEncryptor()
+		encryptor.setPassword(password)
+		encryptor.setAlgorithm("PBEWithHMACSHA512AndAES_256") // Match your Spring Boot application's algorithm
+
+		// 4. Read file content and process regex replacements
+		String content = yamlFile.text
+		def matcher = content =~ /DEC\((.*?)\)/
+
+		int count = 0
+		StringBuffer buffer = new StringBuffer()
+
+		while (matcher.find()) {
+			String plainText = matcher.group(1)
+			String encryptedText = encryptor.encrypt(plainText)
+			matcher.appendReplacement(buffer, "ENC(${encryptedText})")
+			count++
+		}
+		matcher.appendTail(buffer)
+
+		// 5. Save changes if replacements were made
+		if (count > 0) {
+			yamlFile.text = buffer.toString()
+			println "\n✅ Success: Successfully encrypted ${count} properties in ${yamlFile.name}."
+		} else {
+			println "\nℹ️ Info: No 'DEC(...)' placeholders found to encrypt."
+		}
+	}
 }
 
 tasks.decryptProperties {
-	System.getenv("JASYPT_ENCRYPTOR_PASSWORD")
+	group = 'encryption'
+	description = 'Scans application.yaml, decrypts all ENC(...) values, and replaces them with DEC(...)'
+
+	doLast {
+		// 1. Validate environment variable
+		def password = System.getenv("JASYPT_ENCRYPTOR_PASSWORD")
+		if (!password) {
+			throw new GradleException("Environment variable JASYPT_ENCRYPTOR_PASSWORD is not set!")
+		}
+
+		// 2. Locate the target YAML file
+		def yamlFile = file("${projectDir}/src/main/resources/application.yaml")
+		if (!yamlFile.exists()) {
+			throw new GradleException("Target file not found at: ${yamlFile.absolutePath}")
+		}
+
+		// 3. Initialize Jasypt Standard Encryptor (must match encryption config)
+		def encryptor = new org.jasypt.encryption.pbe.StandardPBEStringEncryptor()
+		encryptor.setPassword(password)
+		encryptor.setAlgorithm("PBEWithHMACSHA512AndAES_256")
+
+		// 4. Read file content and process regex replacements for ENC(...)
+		String content = yamlFile.text
+		def matcher = content =~ /ENC\((.*?)\)/
+
+		int count = 0
+		StringBuffer buffer = new StringBuffer()
+
+		while (matcher.find()) {
+			String encryptedText = matcher.group(1)
+			try {
+				String plainText = encryptor.decrypt(encryptedText)
+				// Use Matcher.quoteReplacement to safely escape special characters in the secret
+				matcher.appendReplacement(buffer, "DEC(${java.util.regex.Matcher.quoteReplacement(plainText)})")
+				count++
+			} catch (Exception e) {
+				throw new GradleException("Failed to decrypt value inside ENC(${encryptedText}). Verify your password key.", e)
+			}
+		}
+		matcher.appendTail(buffer)
+
+		// 5. Save changes back to the file
+		if (count > 0) {
+			yamlFile.text = buffer.toString()
+			println "\n🔓 Success: Successfully decrypted ${count} properties in ${yamlFile.name}."
+		} else {
+			println "\nℹ️ Info: No 'ENC(...)' placeholders found to decrypt."
+		}
+	}
 }
 
 spotless {

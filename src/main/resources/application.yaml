@@ -3,6 +3,8 @@
 # ===================================================================
 server:
   port: 8080
+  servlet:
+    context-path: /archetype-service
 spring:
   application:
     name: archetype-service
@@ -10,8 +12,8 @@ spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/archetypedb
-    username: ENC(ku7ULo35PR0vtzrDInm9YZe0l3cz6Z2rp2ON6YD2lKdNOmj2rzmdwlyr6PdRj5gg)
-    password: ENC(17Atuv7t31S12Oz8kBXTfyTTVt6GYNDr6ousctZdQ2TK/5TcRbpUoo5pEBdvb4J5)
+    username: ENC(tJ2Z+tE7EUYGngObBR4r7YcpYcTe7S6HnYfLIL6EakHvbKlj5rpaBTD5PIQolyg4)
+    password: ENC(rctQSg4WyAvoBF6jXmEo5XRAfiByqaS1Y4gF6hF7rpBOaJFFyDEWoz/ZA8Akn+Tn)
   jpa:
     naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     hibernate.ddl-auto: validate
@@ -53,7 +55,7 @@ management:
 # ===================================================================
 security:
   jwt:
-    key: ENC(CuAcl76ySK/o/H4V03L9ruNaAcPfvTzvQsZkDNQjutdM6MnwaaWqwrq4mHDJc9shwCsVvlFlSPLXobk1+XarnMKwR9+NxOkzQBiphxzkrYchA+gz++yQtGzkwqLDxpxzO+XfYWHOBAJLbTdQMJrgwA==)
+    key: ENC(nX4/ePKkaKjuZC2g6DqQ7MykjBOvcj37o7hy/iUt+BB7fC42wjWYyvusmMHODrRTv6syt72JPU/AjvtNQesJO2C1QFdwPw6AcSaR4gBxBbjtZnm1IgZFWXfAzZen7jCkmJthg4QaPtHjYP+v1da41w==)
     lifeTime: 631138000000
     refreshLifeTime: 631138000000
   cors:

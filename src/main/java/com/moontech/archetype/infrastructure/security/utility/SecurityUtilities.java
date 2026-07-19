@@ -6,6 +6,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -52,14 +53,14 @@ public class SecurityUtilities {
     final String authorities =
         authentication.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
-            .collect(Collectors.joining(","));
+            .collect(Collectors.joining(ApiConstant.COMMA));
     return Jwts.builder()
         .subject(authentication.getName())
         .claim(SecurityConstants.AUTHORITIES_KEY, authorities)
         .signWith(SecurityUtilities.getSigningKey(signingKey), Jwts.SIG.HS512)
-        .issuedAt(new Date(System.currentTimeMillis()))
+        .issuedAt(Date.from(Instant.now()))
         .issuer(SecurityConstants.ISSUER_TOKEN)
-        .expiration(new Date(System.currentTimeMillis() + validity))
+        .expiration(Date.from(Instant.now().plusMillis(validity)))
         .compact();
   }
 

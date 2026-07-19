@@ -10,7 +10,7 @@ For more details, see the [CHANGELOG](CHANGELOG) file.
 
 [![Quality gate status](https://sonarcloud.io/api/project_badges/measure?project=felipemonzon_archetype-java-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=felipemonzon_archetype-java-service)
 
-[![CI Build and Test](https://github.com/felipemonzon/archetype-java-service/actions/workflows/ci.yml/badge.svg)](https://github.com/felipemonzon/archetype-java-service/actions/workflows/ci.yml)
+[![CI/CD Main](https://github.com/felipemonzon/archetype-java-service/actions/workflows/main.yml/badge.svg)](https://github.com/felipemonzon/archetype-java-service/actions/workflows/main.yml)
 
 ### 🛠️ Prerequisites
 Ensure you have the following installed before running the project:
@@ -24,10 +24,10 @@ Ensure you have the following installed before running the project:
 ### 📁 Folder Structure Diagram:
 
 ```
-.
 ├── .github/
 │   └── workflows/
-│       └── ci.yml
+│       └── main.yml
+│       └── PR main.yml
 ├── docker/
 │   └── Dockerfile
 ├── gradle/
@@ -69,6 +69,21 @@ Ensure you have the following installed before running the project:
 
 To decrypt the data in the properties file, it is necessary to add this parameter when starting the project:
 
+Before running the project, add the following environment variable to your system:
+Note: The password is the same as the one used to encrypt the data, change it to your own.
+```
+export JASYPT_ENCRYPTOR_PASSWORD=felipemonzon  
+```
+
+In your application.yaml file, you can encrypt sensitive data using the following format:
+
+```
+spring:
+  datasource:
+    username: ENCRYPT(exampleEncryptedUsername)
+```
+
+After that, you can run this command to encrypt sensitive data in the properties file:
 ```
 ./gradlew encryptProperties --password=felipemonzon
 ```
@@ -76,6 +91,20 @@ To decrypt the data in the properties file, it is necessary to add this paramete
 To encrypt sensitive data, it is necessary to compile with the following instruction:
 ```
 ./gradlew decryptProperties --password=felipemonzon
+```
+
+After that, you can run this command to decrypt sensitive data in the properties file:
+
+```
+./gradlew decryptProperties --password=felipemonzon
+```
+
+you can see the encrypted data in the application.yaml file.
+
+```
+spring:
+  datasource:
+    username: ENC(EncryptedUsername)
 ```
 
 ### 🚀 Execution with Docker Compose 
@@ -91,7 +120,7 @@ Build the application executable:
 Spin up the containers:
 
 ```
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 Note: The -d flag runs containers in background mode, and --build ensures the Docker image is recreated with your latest local code changes.
@@ -99,13 +128,13 @@ Note: The -d flag runs containers in background mode, and --build ensures the Do
 Check the service status:
 
 ```
-docker-compose ps
+docker compose ps
 ```
 
 Stop the environment:
 
 ```
-docker-compose down
+docker compose down
 ```
 
 ## 🧪 Testing
