@@ -34,11 +34,11 @@ import org.springframework.web.context.WebApplicationContext;
  * @since 2026-07-13
  */
 @Slf4j
-@SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Tag("integration-test")
 @WithMockUser(roles = TestConstants.ROLE_ADMIN)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public abstract class BaseTestConfiguration extends MysqlBaseConfigurationTest {
 
   /** Web application context for setting up MockMvc. */
