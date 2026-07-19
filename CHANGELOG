@@ -7,3 +7,7 @@
 
 - Add quality gate
 - Check dependency
+
+- Rename CI/CD for Pull request
+- Create CI/CD for push to main branch
+- Add Integration test for login

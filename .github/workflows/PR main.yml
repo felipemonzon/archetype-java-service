@@ -1,6 +1,5 @@
-name: CI/CD Build and Test
+name: CI/CD Build and Quality Gate
 
-# Configura la concurrencia para evitar ejecuciones simultáneas
 concurrency:
   group: main
   cancel-in-progress: true
@@ -18,7 +17,6 @@ jobs:
     permissions:
       contents: read
 
-    # Define las variables de entorno para el trabajo
     env:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
