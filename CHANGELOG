@@ -11,3 +11,9 @@
 - Rename CI/CD for Pull request
 - Create CI/CD for push to main branch
 - Add Integration test for login
+
+- Implement password reset feature
+- Implement password reset confirm feature
+- Implement strategy notification
+- Add Integration test for password reset
+- Add Integration test for password reset confirm

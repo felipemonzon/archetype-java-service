@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
 import com.moontech.archetype.commons.constant.FormatConstant;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
@@ -40,5 +41,5 @@ public class ErrorResponse {
   @Builder.Default
   @JsonSerialize(using = ZonedDateTimeSerializer.class)
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = FormatConstant.ERROR_DATE_PATTERN)
-  private ZonedDateTime timestamp = ZonedDateTime.now();
+  private ZonedDateTime timestamp = ZonedDateTime.now(ZoneId.systemDefault());
 }

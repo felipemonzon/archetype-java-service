@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO users
 (id_user, created_user, created_date, last_modified_user, last_modified_date, phone, email, first_name, genre, last_name, password, username, status, id_enterprise)
-VALUES('USU324htgd243yt567jh', 'ADMIN', NOW(), 'ADMIN', NOW(), '6671568899', 'felipemonzon2705@gmail.com', 'Felipe', 'MALE', 'Monzon', '$2a$10$9iN3/AJbwV4NXhC8dydbtefhV0w4k5s1WQgjvyxT7hjkTKeutUkge', 'felipemonzon2705', 'ACTIVE', 1);
+VALUES('USU324htgd243yt567jh', 'ADMIN', NOW(), 'ADMIN', NOW(), '1234567890', 'test@enterprise.com', 'test_name', 'MALE', 'test_last_name', '$2a$10$9iN3/AJbwV4NXhC8dydbtefhV0w4k5s1WQgjvyxT7hjkTKeutUkge', 'test_user', 'ACTIVE', 1);
 
 -- archetype.user_roles definition
 

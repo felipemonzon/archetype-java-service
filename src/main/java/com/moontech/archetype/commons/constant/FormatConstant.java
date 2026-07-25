@@ -1,11 +1,14 @@
 package com.moontech.archetype.commons.constant;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Class with constants for formats.
  *
  * @author Felipe Monzón
  * @since 2026-06-09
  */
+@UtilityClass
 public class FormatConstant {
   /** Error response output format. */
   public static final String ERROR_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
@@ -25,6 +28,6 @@ public class FormatConstant {
   /** Format for numbers and letters only */
   public static final String USERNAME_PATTERN = "^[A-Za-z0-9\\s\\.\\_\\-]+$";
 
-  /** Private constructor. */
-  private FormatConstant() {}
+  /** Format for date time in yyyy-MM-dd HH:mm:ss. */
+  public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 }

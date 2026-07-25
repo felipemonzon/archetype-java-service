@@ -15,6 +15,9 @@ public class TestConstants {
   /** UUID header. */
   public static final String UUID_HEADER = "uuid";
 
+  /** X-Forwarded-For header. */
+  public static final String X_FORWARDED_HEADER = "X-Forwarded-For";
+
   /** Admin profile. */
   public static final String ROLE_ADMIN = "ADMIN";
 
@@ -25,17 +28,26 @@ public class TestConstants {
   public static final String TEST_RUNNING = "Running {}";
 
   /** Test username. */
-  public static final String USERNAME = "felipemonzon2705";
+  public static final String USERNAME = "test_user";
 
   /** Test id. */
   public static final String TEST_ID = "USU324htgd243yt567jh";
 
   /** Test token. */
   public static final String TEST_TOKEN =
-      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmZWxpcGVtb256b24yNzA1IiwiQ0xBSU1fVE9LRU4iOiJST0xFX0FETUlOLEZBQ1RPUl9QQVNTV09SRCIsImlhdCI6MTc4MzM4ODMyMCwiaXNzIjoiSVNTVUVSIiwiZXhwIjoyNDE0NTI2MzIwfQ.QruWau3Dg9cMjsiy8hvYPeWSQCOABVyUt76V4xm0IAqCZhqpzXaHPKR2n0MRQ74dbJmSTIQJxqdmY-ybGqGbmQ";
+      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0X3VzZXIiLCJDTEFJTV9UT0tFTiI6IkZBQ1RPUl9QQVNTV09SRCIsImlhdCI6MTc4NTIwNDkwMywiaXNzIjoiSVNTVUVSIiwiZXhwIjoyNDE2MzQyOTAzfQ.4OPaimofLj39g7jCqQnfNE7XTfDUUa3cxpoKeufXMTUuflpAB7ofXmkr_IPLZQumsTWwI4zvqpdswOsqwOjQtg";
 
   /** Test for bad username. */
   public static final String BAD_USERNAME = "test_user_21";
+
+  /** X-Forwarded-For header value. */
+  public static final String X_FORWARDER_HEADER_VALUE = "Mozilla/5.0 (Linux; Android 10)";
+
+  /** Test IP. */
+  public static final String TEST_IP = "192.168.1.1";
+
+  /** Test token password. */
+  public static final String TEST_TOKEN_PASSWORD = "ojKvAxV5zJOMp6cHJIac0-D0X9uykaQWx5NJ5G6ONWE";
 
   /**
    * LoginResponse.

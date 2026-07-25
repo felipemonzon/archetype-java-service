@@ -47,4 +47,12 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
    * @return datos del usuario encontrado
    */
   UserEntity findByIdUser(String idUser);
+
+  /**
+   * Consulta un usuario por su correo electronico.
+   *
+   * @param email correo electronico
+   * @return usuario encontrado
+   */
+  Optional<UserEntity> findByEmail(String email);
 }
