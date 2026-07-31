@@ -5,9 +5,14 @@ INSERT INTO roles (id, name, value, status, created_user, created_date, last_mod
 VALUES (1000,'ROLE_ADMIN-2', 'ADMIN', 1, 'ADMIN', NOW(), 'ADMIN', NOW()),
        (1001,'ROLE_CUSTOMER-2', 'Cliente', 1, 'ADMIN', NOW(), 'ADMIN', NOW());
 
+INSERT INTO users(id, id_user, created_user, created_date, last_modified_user, last_modified_date, phone, email, first_name, genre, last_name, password, username, status, id_enterprise)
+VALUES(1000,'USU324htgd243yt567jh', 'ADMIN', NOW(), 'ADMIN', NOW(), '0987654321', 'test@example.com', 'Test', 'MALE', 'Test', '$2a$10$K9UyV7Eiwoi8Udv/9R5kROuDvz/K6ZVLJzzESW2lVe7B.FfXRg0hK', 'test_user_2', 'ACTIVE', 1000);
 
 INSERT INTO users(id, id_user, created_user, created_date, last_modified_user, last_modified_date, phone, email, first_name, genre, last_name, password, username, status, id_enterprise)
-VALUES(1000,'USU324htgd243yt567jh', 'ADMIN', NOW(), 'ADMIN', NOW(), '6671223322', 'test@gmail.com', 'Test', 'MALE', 'Test', '$2a$10$K9UyV7Eiwoi8Udv/9R5kROuDvz/K6ZVLJzzESW2lVe7B.FfXRg0hK', 'test_user', 'ACTIVE', 1000);
+VALUES(1001,'USU324htgd243yt56123', 'ADMIN', NOW(), 'ADMIN', NOW(), '1234567890', 'test2@example.com', 'Test', 'MALE', 'Test', '$2a$10$K9UyV7Eiwoi8Udv/9R5kROuDvz/K6ZVLJzzESW2lVe7B.FfXRg0hK', 'test_user2', 'ACTIVE', 1000);
 
 INSERT INTO user_roles (id_user, id_role)
 VALUES (1000, 1000);
+
+INSERT INTO user_roles (id_user, id_role)
+VALUES (1001, 1001);

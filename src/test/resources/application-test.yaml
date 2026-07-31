@@ -52,6 +52,27 @@ api:
       reset: /password/reset
       passwordForgot: ${api.uri.domain.users}/password/reset
   interceptorPath: "/**"
+  # ===================================================================
+  # MAIL TEMPLATE PROPERTIES
+  # ===================================================================
+  mail:
+    templates:
+      user: email-user-template.flth
+      customer: email-customer-template.flth
+      payment: email-payment-subscription-template.flth
+      forgot_password: forgot-password-template.flth
+      reset_password: reset_password_template.flth
+    from: noreply@enterprise.com
+    welcomeSubject: Bienvenido
+    forgotPasswordSubject: Recupera tu Contraseña
+    resetPasswordSubject: Tu contraseña ha sido cambiada
+    enterpriseName: Enterprise-Name
+    supportEmail: support@enterprise.com
+# ===================================================================
+# GEOIP PROPERTIES
+# ===================================================================
+geoip:
+  db-path: classpath:geolocation/GeoLite2-City.mmdb
 # ===================================================================
 # SWAGGER PROPERTIES
 # ===================================================================

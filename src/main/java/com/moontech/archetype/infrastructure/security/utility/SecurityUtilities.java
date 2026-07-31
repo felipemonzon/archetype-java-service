@@ -26,7 +26,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * Security utility.
  *
  * @author Felipe Monzón
- * @since 2206-06-29
+ * @since 2026-07-21
  */
 @UtilityClass
 public class SecurityUtilities {

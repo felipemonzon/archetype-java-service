@@ -2,11 +2,14 @@ package com.moontech.archetype.infrastructure.exception.management;
 
 import com.moontech.archetype.commons.constant.ApiConstant;
 import com.moontech.archetype.commons.constant.ErrorConstant;
+import com.moontech.archetype.infrastructure.exception.custom.BadRequestException;
 import com.moontech.archetype.infrastructure.exception.custom.BusinessException;
 import com.moontech.archetype.infrastructure.exception.custom.ErrorResponse;
 import com.moontech.archetype.infrastructure.exception.custom.ForbiddenException;
 import com.moontech.archetype.infrastructure.exception.custom.NotDataFoundException;
+import com.moontech.archetype.infrastructure.exception.custom.NotificationException;
 import jakarta.servlet.http.HttpServletRequest;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -236,7 +239,7 @@ public class ExceptionManagement {
             .moreInfo(
                 message[0].replace(ErrorConstant.PREFIX_DETAIL_MESSAGE, StringUtils.EMPTY).trim())
             .uuid(req.getHeader(ApiConstant.HEADER_UUID))
-            .timestamp(ZonedDateTime.now())
+            .timestamp(ZonedDateTime.now(ZoneId.systemDefault()))
             .build();
     log.error(errorResponse.toString());
     return errorResponse;
@@ -257,6 +260,50 @@ public class ExceptionManagement {
             .type(ErrorType.INVALID.name())
             .code(ex.getCode())
             .message(ex.getMessage())
+            .uuid(request.getHeader(ApiConstant.HEADER_UUID))
+            .build();
+    log.debug(apiError.toString());
+    return apiError;
+  }
+
+  /**
+   * Method to handle an exception of type {@link NotificationException}.
+   *
+   * @param request Http Servlet request object.
+   * @param ex Received exception {@link NotificationException}
+   * @return errorResponse {@link ErrorResponse} specific response for {@link
+   *     NotificationException}.
+   */
+  @ExceptionHandler(NotificationException.class)
+  @ResponseStatus(value = HttpStatus.UNPROCESSABLE_CONTENT)
+  public ErrorResponse resolveForbiddenException(WebRequest request, NotificationException ex) {
+    ErrorResponse apiError =
+        ErrorResponse.builder()
+            .type(ErrorType.ERROR.name())
+            .code(ex.getCode())
+            .message(ex.getMessage())
+            .uuid(request.getHeader(ApiConstant.HEADER_UUID))
+            .build();
+    log.debug(apiError.toString());
+    return apiError;
+  }
+
+  /**
+   * Method to handle an exception of type {@link BadRequestException}.
+   *
+   * @param request Http Servlet request object.
+   * @param ex Received exception {@link BadRequestException}
+   * @return errorResponse {@link ErrorResponse} specific response for {@link BadRequestException}.
+   */
+  @ExceptionHandler(BadRequestException.class)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  public ErrorResponse resolveBadRequestException(WebRequest request, BadRequestException ex) {
+    ErrorResponse apiError =
+        ErrorResponse.builder()
+            .type(ErrorType.INVALID.name())
+            .code(ErrorConstant.BAD_REQUEST_CODE)
+            .message(ex.getMessage())
+            .moreInfo(ex.getBadFields().toString())
             .uuid(request.getHeader(ApiConstant.HEADER_UUID))
             .build();
     log.debug(apiError.toString());

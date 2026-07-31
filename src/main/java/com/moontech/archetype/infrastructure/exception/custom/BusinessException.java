@@ -1,5 +1,6 @@
 package com.moontech.archetype.infrastructure.exception.custom;
 
+import java.io.Serial;
 import lombok.Getter;
 
 /**
@@ -11,7 +12,7 @@ import lombok.Getter;
 @Getter
 public class BusinessException extends RuntimeException {
   /** Serial. */
-  private static final long serialVersionUID = -6450278167900735942L;
+  @Serial private static final long serialVersionUID = -6450278167900735942L;
 
   /** Error code. */
   private final int code;

@@ -6,14 +6,33 @@ server:
   servlet:
     context-path: /archetype-service
 spring:
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    port: 587
+    username: ENC(M8AJyskWkVvxMP29wvJX5Bqpj8O67quOVNKHJ78+yE0MSt6JOmmblLFoVH59sSrcFg8AvW8v4Vh27cMP3iog0g==)
+    password: ENC(1Zvk+0khydyJrJQCGtqHLmqwdccVj2J0BVq2mzVRplCYOrs1Hk8ouc+x2WlVjnka0ETRVN9uyUo1WY1j4kIuVQ==)
+    server:
+      protocol: smtp
+      debug: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  freemarker:
+    template-loader-path: classpath:/templates
+    charset: UTF-8
+    cache: false
   application:
     name: archetype-service
   main.banner-mode: off
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/archetypedb
-    username: ENC(tJ2Z+tE7EUYGngObBR4r7YcpYcTe7S6HnYfLIL6EakHvbKlj5rpaBTD5PIQolyg4)
-    password: ENC(rctQSg4WyAvoBF6jXmEo5XRAfiByqaS1Y4gF6hF7rpBOaJFFyDEWoz/ZA8Akn+Tn)
+    username: ENC(8gbqvhYTfYgLSMqysc2AQmvgiZEeMRtP7XNdNvALyI6Yrf2XtB0Oy6wtPYkI6BM2)
+    password: ENC(G1S58A3F6ykIQtSqAVnETEzVNbK93XOHAkIUStbJRvZldzLilF5FHck9mrCpx2YK)
   jpa:
     naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     hibernate.ddl-auto: validate
@@ -55,7 +74,7 @@ management:
 # ===================================================================
 security:
   jwt:
-    key: ENC(nX4/ePKkaKjuZC2g6DqQ7MykjBOvcj37o7hy/iUt+BB7fC42wjWYyvusmMHODrRTv6syt72JPU/AjvtNQesJO2C1QFdwPw6AcSaR4gBxBbjtZnm1IgZFWXfAzZen7jCkmJthg4QaPtHjYP+v1da41w==)
+    key: ENC(tK6tWdtYuqyC0G4Xcfe1zhiDt+dnXnbBprtLfOKnMSsX1ze5IBfvsZeiJ29wo/sYJTjj5TJQ6j05UTlxjgulCFAuJ9NAHJiIeotWMu4lgsoh7mpUzS9ESfrfbctc+gObjd767RQvBZfXjccelTGINA==)
     lifeTime: 631138000000
     refreshLifeTime: 631138000000
   cors:
@@ -93,6 +112,28 @@ api:
       reset: /password/reset
       passwordForgot: ${api.uri.domain.users}/password/reset
   interceptorPath: "/**"
+  # ===================================================================
+  # MAIL TEMPLATE PROPERTIES
+  # ===================================================================
+  mail:
+    templates:
+      user: email-user-template.flth
+      customer: email-customer-template.flth
+      payment: email-payment-subscription-template.flth
+      forgot_password: forgot-password-template.flth
+      reset_password: reset_password_template.flth
+    from: ENCRYPT(your email)
+    welcomeSubject: Bienvenido
+    forgotPasswordSubject: Recupera tu Contraseña
+    resetPasswordSubject: Tu contraseña ha sido cambiada
+    enterpriseName: Enterprise-Name
+    supportEmail: support@enterprise.com
+# ===================================================================
+# GEOIP PROPERTIES
+# ===================================================================
+geoip:
+  db-path: classpath:geolocation/GeoLite2-City.mmdb
+
 # ===================================================================
 # SWAGGER PROPERTIES
 # ===================================================================

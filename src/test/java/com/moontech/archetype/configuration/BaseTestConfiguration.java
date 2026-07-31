@@ -72,6 +72,8 @@ public abstract class BaseTestConfiguration extends MysqlBaseConfigurationTest {
         SecurityConstants.TOKEN_BEARER_PREFIX + StringUtils.SPACE + this.generateTestToken());
     headers.add(TestConstants.UUID_HEADER, String.valueOf(UUID.randomUUID()));
     headers.add(SecurityConstants.REFRESH_TOKEN_HEADER_NAME, TestConstants.TEST_TOKEN);
+    headers.add(HttpHeaders.USER_AGENT, TestConstants.X_FORWARDER_HEADER_VALUE);
+    headers.add(TestConstants.X_FORWARDED_HEADER, TestConstants.TEST_IP);
 
     return headers;
   }
