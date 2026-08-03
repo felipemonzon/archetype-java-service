@@ -17,3 +17,6 @@
 - Implement strategy notification
 - Add Integration test for password reset
 - Add Integration test for password reset confirm
+- Add Integration test for strategy notification
+
+- Add telemetry feature

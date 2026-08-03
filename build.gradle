@@ -50,6 +50,7 @@ dependencies {
 	implementation("tech.mappie:mappie-api-jvm:${project.properties["mappie_version"] as String}")
 	implementation "org.mapstruct:mapstruct:${project.properties["map_struct"] as String}"
 	implementation 'com.maxmind.geoip2:geoip2:2.16.1'
+	implementation 'org.springframework.boot:spring-boot-starter-opentelemetry'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor "org.mapstruct:mapstruct-processor:${project.properties["map_struct"] as String}"

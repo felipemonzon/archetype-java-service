@@ -10,8 +10,8 @@ spring:
     default-encoding: UTF-8
     host: smtp.gmail.com
     port: 587
-    username: ENC(M8AJyskWkVvxMP29wvJX5Bqpj8O67quOVNKHJ78+yE0MSt6JOmmblLFoVH59sSrcFg8AvW8v4Vh27cMP3iog0g==)
-    password: ENC(1Zvk+0khydyJrJQCGtqHLmqwdccVj2J0BVq2mzVRplCYOrs1Hk8ouc+x2WlVjnka0ETRVN9uyUo1WY1j4kIuVQ==)
+    username: DEC(your_username)
+    password: DEC(your_password)
     server:
       protocol: smtp
       debug: true
@@ -45,6 +45,16 @@ spring:
     locations: classpath:/db/migration
     baseline-on-migrate: true
     baseline: 0
+
+  otlp:
+    metrics:
+      export:
+        url: http://localhost:4318/v1/metrics
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: http://localhost:4318/v1/traces
 
 management:
   tracing:
@@ -122,7 +132,7 @@ api:
       payment: email-payment-subscription-template.flth
       forgot_password: forgot-password-template.flth
       reset_password: reset_password_template.flth
-    from: ENCRYPT(your email)
+    from: DEC(your email)
     welcomeSubject: Bienvenido
     forgotPasswordSubject: Recupera tu Contraseña
     resetPasswordSubject: Tu contraseña ha sido cambiada
