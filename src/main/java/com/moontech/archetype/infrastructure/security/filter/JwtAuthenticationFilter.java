@@ -19,8 +19,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -163,15 +161,5 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                           .uuid(request.getHeader(ApiConstant.HEADER_UUID))
                           .build()));
     }
-  }
-
-  /**
-   * Resolves Spring placeholder variables.
-   *
-   * @return {@code PropertySourcesPlaceholderConfigurer}
-   */
-  @Bean
-  public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
   }
 }

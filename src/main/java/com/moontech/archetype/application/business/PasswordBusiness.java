@@ -17,6 +17,7 @@ import com.moontech.archetype.infrastructure.notification.enums.EmailTemplate;
 import com.moontech.archetype.infrastructure.notification.enums.NotificationChannel;
 import com.moontech.archetype.infrastructure.notification.utilities.NotificationUtilities;
 import com.moontech.archetype.infrastructure.security.utility.SecurityUtilities;
+import io.micrometer.observation.annotation.Observed;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
@@ -61,6 +62,7 @@ public class PasswordBusiness implements PasswordService {
    */
   @Override
   @Transactional
+  @Observed(name = "request change password")
   public GenericResponse requestPasswordReset(PasswordResetRequest request) {
     Optional.of(
             this.userRepository
@@ -110,6 +112,7 @@ public class PasswordBusiness implements PasswordService {
    */
   @Override
   @Transactional
+  @Observed(name = "request confirm password reset")
   public GenericResponse confirmPasswordReset(PasswordResetConfirmRequest request) {
     String hash = NotificationUtilities.sha256Hex(request.getToken());
     PasswordResetTokenEntity token =
